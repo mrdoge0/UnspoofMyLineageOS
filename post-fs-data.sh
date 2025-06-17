@@ -46,6 +46,8 @@ resetprop -n ro.product.system.name "$NAME"
 resetprop -n ro.product.product.name "$NAME"
 resetprop -n ro.product.system_ext.name "$NAME"
 resetprop -n ro.product.vendor.name "$NAME"
+resetprop -n ro.product.vendor_dlkm.name "$NAME"
+resetprop -n ro.product.odm.name "$NAME"
 
 # Apply ro.build.flavor prop.
 resetprop -n ro.build.flavor "$FLAVOR"
