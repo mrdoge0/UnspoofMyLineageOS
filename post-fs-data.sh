@@ -5,6 +5,7 @@
 
 # Gather props.
 SYSTEMPROP="/system/build.prop"
+VENDORPROP="/vendor/build.prop"
 BRAND=$(grep -E 'ro.product.vendor.brand=' "$VENDORPROP" | cut -d'=' -f2)
 DEVICE=$(grep -E 'ro.product.vendor.device=' "$VENDORPROP" | cut -d'=' -f2)
 VER=$(grep -E 'ro.build.version.release_or_codename=' "$SYSTEMPROP" | cut -d'=' -f2)
