@@ -14,6 +14,11 @@ INC=$(grep -E 'ro.build.version.incremental=' "$SYSTEMPROP" | cut -d'=' -f2)
 TYPE=$(grep -E 'ro.build.type=' "$SYSTEMPROP" | cut -d'=' -f2)
 TAGS=$(grep -E 'ro.build.tags=' "$SYSTEMPROP" | cut -d'=' -f2)
 
+# Incremental spoofing feature
+if [ -f "/data/adb/unspoofmylineage_forcespoofinc" ]; then
+  INC=$(cat "/data/adb/unspoofmylineage_forcespoofinc")
+fi
+
 # Generate more props.
 NAME="lineage_$DEVICE"
 FLAVOR="$NAME-$TYPE"
