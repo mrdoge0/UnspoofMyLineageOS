@@ -13,10 +13,12 @@ ID=$(grep -E 'ro.build.id=' "$SYSTEMPROP" | cut -d'=' -f2)
 INC=$(grep -E 'ro.build.version.incremental=' "$SYSTEMPROP" | cut -d'=' -f2)
 TYPE=$(grep -E 'ro.build.type=' "$SYSTEMPROP" | cut -d'=' -f2)
 TAGS=$(grep -E 'ro.build.tags=' "$SYSTEMPROP" | cut -d'=' -f2)
+DISPID=
 
 # Incremental spoofing feature
 if [ -f "/data/adb/unspoofmylineage_forcespoofinc" ]; then
   INC=$(cat "/data/adb/unspoofmylineage_forcespoofinc")
+  INC_SPOOFED=1
 fi
 
 # Generate more props.
@@ -56,6 +58,22 @@ resetprop -n ro.product.odm.name "$NAME"
 
 # Apply ro.build.flavor prop.
 resetprop -n ro.build.flavor "$FLAVOR"
+
+# Do extra shit if incremental is spoofed.
+if [ ! -z $INC_SPOOFED ]; then
+  resetprop -n ro.build.version.incremental "$INC"
+  resetprop -n ro.system.build.version.incremental "$INC"
+  resetprop -n ro.product.build.version.incremental "$INC"
+  resetprop -n ro.system_ext.build.version.incremental "$INC"
+  resetprop -n ro.vendor.build.version.incremental "$INC"
+  resetprop -n ro.vendor_dlkm.build.version.incremental "$INC"
+  resetprop -n ro.odm.build.version.incremental "$INC"
+  if [ ! -z "$(grep -E 'ro.build.display.id=' "$SYSTEMPROP" | grep '-userdebug ')" ]; then
+    resetprop -n ro.build.display.id "$DESC"
+  elif [ ! -z "$(grep -E 'ro.build.display.id=' "$SYSTEMPROP" | grep '-eng ')" ]; then
+    resetprop -n ro.build.display.id "$DESC"
+  fi
+fi
 
 # Exit.
 exit 0
