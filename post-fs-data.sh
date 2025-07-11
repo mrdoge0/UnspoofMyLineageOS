@@ -67,9 +67,9 @@ if [ ! -z $INC_SPOOFED ]; then
   resetprop -n ro.vendor.build.version.incremental "$INC"
   resetprop -n ro.vendor_dlkm.build.version.incremental "$INC"
   resetprop -n ro.odm.build.version.incremental "$INC"
-  if [ ! -z "$(grep -E 'ro.build.display.id=' "$SYSTEMPROP" | grep '-userdebug ')" ]; then
+  if [ ! -z "$(grep -E 'ro.build.display.id=' "$SYSTEMPROP")" ]; then
     resetprop -n ro.build.display.id "$DESC"
-  elif [ ! -z "$(grep -E 'ro.build.display.id=' "$SYSTEMPROP" | grep '-eng ')" ]; then
+  elif [ ! -z "$(grep -E 'ro.build.display.id=' "$SYSTEMPROP")" ]; then
     resetprop -n ro.build.display.id "$DESC"
   fi
 fi
