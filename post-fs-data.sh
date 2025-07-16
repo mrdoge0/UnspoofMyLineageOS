@@ -21,8 +21,13 @@ if [ -f "/data/adb/unspoofmylineage_forcespoofinc" ]; then
 fi
 
 # Generate more props.
-NAME="lineage_$DEVICE"
-FLAVOR="$NAME-$TYPE"
+if [ -f "/data/adb/unspoofmylineage_aospmode" ]; then
+  NAME="aosp_$DEVICE"
+  FLAVOR="$NAME-$TYPE"
+else
+  NAME="lineage_$DEVICE"
+  FLAVOR="$NAME-$TYPE"
+fi
 
 # Generate ultimate props.
 FP="$BRAND/$NAME/$DEVICE:$VER/$ID/$INC:$TYPE/$TAGS"
